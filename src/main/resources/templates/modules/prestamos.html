@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Prestamos | SSG</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+	<div class="shell">
+		<header class="topbar">
+			<div class="brand"><div class="logo">SSG</div><div><small>Modulo</small><strong th:text="${titulo}">Prestamos</strong></div></div>
+			<nav class="nav"><a href="/dashboard">Dashboard</a><a href="/modulos/campers">Campers</a><a href="/modulos/computadores">Computadores</a><a href="/modulos/incidencias">Incidencias</a></nav>
+		</header>
+		<section class="panel">
+			<div class="section-title"><div><h2 th:text="${titulo}">Modulo</h2><p th:text="${descripcion}">Descripcion</p></div></div>
+			<div class="table-wrap">
+				<table>
+					<thead><tr><th>ID</th><th>Camper</th><th>Computador</th><th>Asignacion</th><th>Devolucion</th><th>Entrega real</th><th>Estado</th></tr></thead>
+					<tbody>
+						<tr th:each="item : ${items}">
+							<td th:text="${item.id}">1</td>
+							<td th:text="${item.camper.nombreCompleto}">Camper</td>
+							<td th:text="${item.computador.serial}">Computador</td>
+							<td th:text="${item.fechaAsignacion}">2026-01-01</td>
+							<td th:text="${item.fechaDevolucionProgramada}">2026-01-10</td>
+							<td th:text="${item.fechaEntregaReal != null ? item.fechaEntregaReal : 'Pendiente'}">Pendiente</td>
+							<td><span class="tag" th:text="${item.estado}">Estado</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

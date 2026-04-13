@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Incidencias | SSG</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+	<div class="shell">
+		<header class="topbar">
+			<div class="brand"><div class="logo">SSG</div><div><small>Modulo</small><strong th:text="${titulo}">Incidencias</strong></div></div>
+			<nav class="nav"><a href="/dashboard">Dashboard</a><a href="/modulos/campers">Campers</a><a href="/modulos/computadores">Computadores</a><a href="/modulos/prestamos">Prestamos</a></nav>
+		</header>
+		<section class="panel">
+			<div class="section-title"><div><h2 th:text="${titulo}">Modulo</h2><p th:text="${descripcion}">Descripcion</p></div></div>
+			<div class="table-wrap">
+				<table>
+					<thead><tr><th>ID</th><th>Computador</th><th>Prestamo</th><th>Fecha</th><th>Tipo</th><th>Severidad</th><th>Estado</th><th>Reporte</th></tr></thead>
+					<tbody>
+						<tr th:each="item : ${items}">
+							<td th:text="${item.id}">1</td>
+							<td th:text="${item.computador.serial}">SN</td>
+							<td th:text="${item.prestamoId != null ? item.prestamoId : 'Sin prestamo'}">Prestamo</td>
+							<td th:text="${item.fechaReporte}">2026-01-01</td>
+							<td th:text="${item.tipo}">TIPO</td>
+							<td th:text="${item.severidad}">ALTA</td>
+							<td><span class="tag" th:text="${item.estado}">ABIERTA</span></td>
+							<td th:text="${item.reportadoPor}">Usuario</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

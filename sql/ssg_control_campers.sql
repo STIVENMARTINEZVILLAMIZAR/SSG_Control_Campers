@@ -47,6 +47,15 @@ CREATE TABLE incidencias (
     CONSTRAINT fk_incidencia_prestamo FOREIGN KEY (prestamo_id) REFERENCES prestamos_computador(id)
 );
 
+CREATE TABLE usuarios (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nombre_completo VARCHAR(120) NOT NULL,
+    correo VARCHAR(120) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol VARCHAR(30) NOT NULL,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
 INSERT INTO campers (documento, nombre_completo, correo, clan, activo) VALUES
 ('109000001', 'Laura Martinez', 'laura.martinez@campuslands.com', 'Cajasan-Backend', TRUE),
 ('109000002', 'Nicolas Rojas', 'nicolas.rojas@campuslands.com', 'Cajasan-Frontend', TRUE);
@@ -54,6 +63,11 @@ INSERT INTO campers (documento, nombre_completo, correo, clan, activo) VALUES
 INSERT INTO computadores (serial, placa_inventario, marca, modelo, ubicacion, estado) VALUES
 ('SN-CAJ-1001', 'INV-001', 'Lenovo', 'ThinkPad E14', 'Sala 1', 'DISPONIBLE'),
 ('SN-CAJ-1002', 'INV-002', 'HP', 'ProBook 440', 'Sala 2', 'DISPONIBLE');
+
+INSERT INTO usuarios (nombre_completo, correo, password, rol, activo) VALUES
+('Administrador Campus', 'admin@campuslands.com', '$2y$10$sks5ad3wZBH9MCMZLO.sIuwu0zwhNt6/vOmV4U/u88igDrTBUaoV2', 'ADMIN', TRUE),
+('Coordinacion Campus', 'coordinacion@campuslands.com', '$2y$10$sks5ad3wZBH9MCMZLO.sIuwu0zwhNt6/vOmV4U/u88igDrTBUaoV2', 'COORDINACION', TRUE),
+('Soporte Campus', 'soporte@campuslands.com', '$2y$10$sks5ad3wZBH9MCMZLO.sIuwu0zwhNt6/vOmV4U/u88igDrTBUaoV2', 'SOPORTE', TRUE);
 
 DELIMITER //
 

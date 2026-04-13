@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registro | SSG</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+	<div class="form-wrap">
+		<div class="form-card">
+			<div class="pill">Registro de usuarios</div>
+			<h1>Crear acceso al sistema</h1>
+			<p class="lead">Registra personal autorizado para operar el control interno.</p>
+
+			<form method="post" th:action="@{/registro}" th:object="${usuarioForm}">
+				<div class="field">
+					<label for="nombreCompleto">Nombre completo</label>
+					<input id="nombreCompleto" th:field="*{nombreCompleto}" type="text" required>
+				</div>
+				<div class="field">
+					<label for="correo">Correo</label>
+					<input id="correo" th:field="*{correo}" type="email" required>
+				</div>
+				<div class="field">
+					<label for="password">Contrasena</label>
+					<input id="password" th:field="*{password}" type="password" required>
+				</div>
+				<div class="field">
+					<label for="rol">Rol</label>
+					<select id="rol" th:field="*{rol}">
+						<option th:each="rol : ${roles}" th:value="${rol}" th:text="${rol}"></option>
+					</select>
+				</div>
+				<button class="button primary" type="submit" style="width: 100%;">Registrar usuario</button>
+			</form>
+
+			<div class="footer-actions">
+				<a class="button" href="/">Volver al inicio</a>
+				<a class="button" href="/login">Ir a login</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

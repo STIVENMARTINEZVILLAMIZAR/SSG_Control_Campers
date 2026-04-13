@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard | SSG</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+	<div class="shell">
+		<header class="topbar">
+			<div class="brand">
+				<div class="logo">SSG</div>
+				<div>
+					<small>Panel operativo</small>
+					<strong>Dashboard institucional</strong>
+				</div>
+			</div>
+			<nav class="nav">
+				<a href="/">Inicio</a>
+				<a href="/modulos/campers">Campers</a>
+				<a href="/modulos/computadores">Computadores</a>
+				<a href="/modulos/prestamos">Prestamos</a>
+				<a href="/modulos/incidencias">Incidencias</a>
+				<form method="post" th:action="@{/logout}">
+					<button type="submit">Cerrar sesion</button>
+				</form>
+			</nav>
+		</header>
+
+		<section class="panel">
+			<div class="section-title">
+				<div>
+					<h2>Resumen ejecutivo</h2>
+					<p>Indicadores en vivo del estado operativo del control interno.</p>
+				</div>
+			</div>
+			<div class="grid metrics">
+				<div class="metric"><span>Campers activos</span><strong th:text="${resumen.totalCampersActivos}">0</strong></div>
+				<div class="metric"><span>Computadores</span><strong th:text="${resumen.totalComputadores}">0</strong></div>
+				<div class="metric"><span>Disponibles</span><strong th:text="${resumen.computadoresDisponibles}">0</strong></div>
+				<div class="metric"><span>Asignados</span><strong th:text="${resumen.computadoresAsignados}">0</strong></div>
+				<div class="metric"><span>Mantenimiento</span><strong th:text="${resumen.computadoresEnMantenimiento}">0</strong></div>
+				<div class="metric"><span>Prestamos activos</span><strong th:text="${resumen.prestamosActivos}">0</strong></div>
+				<div class="metric"><span>Incidencias abiertas</span><strong th:text="${resumen.incidenciasAbiertas}">0</strong></div>
+				<div class="metric"><span>Criticas</span><strong th:text="${resumen.incidenciasCriticas}">0</strong></div>
+			</div>
+		</section>
+
+		<section class="panel" style="margin-top: 24px;">
+			<div class="two-col">
+				<div>
+					<div class="section-title">
+						<div>
+							<h2>Modulos disponibles</h2>
+							<p>Navegacion operativa del sistema.</p>
+						</div>
+					</div>
+					<div class="list-box">
+						<a class="list-item" href="/modulos/campers">Gestion de campers</a>
+						<a class="list-item" href="/modulos/computadores">Inventario de computadores</a>
+						<a class="list-item" href="/modulos/prestamos">Prestamos y devoluciones</a>
+						<a class="list-item" href="/modulos/incidencias">Incidencias y soporte</a>
+					</div>
+				</div>
+
+				<div>
+					<div class="section-title">
+						<div>
+							<h2>Usuarios registrados</h2>
+							<p>Accesos internos del sistema.</p>
+						</div>
+					</div>
+					<div class="table-wrap">
+						<table>
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Correo</th>
+									<th>Rol</th>
+									<th>Activo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="usuario : ${usuarios}">
+									<td th:text="${usuario.nombreCompleto}">Nombre</td>
+									<td th:text="${usuario.correo}">Correo</td>
+									<td><span class="tag" th:text="${usuario.rol}">ROL</span></td>
+									<td th:text="${usuario.activo} ? 'Si' : 'No'">Si</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

@@ -5,15 +5,19 @@ import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.campus.campus.model.Camper;
 import com.campus.campus.model.Computador;
 import com.campus.campus.model.EstadoComputador;
 import com.campus.campus.model.EstadoPrestamo;
 import com.campus.campus.model.PrestamoComputador;
+import com.campus.campus.model.RolUsuario;
+import com.campus.campus.model.Usuario;
 import com.campus.campus.repository.CamperRepository;
 import com.campus.campus.repository.ComputadorRepository;
 import com.campus.campus.repository.PrestamoComputadorRepository;
+import com.campus.campus.repository.UsuarioRepository;
 
 @Configuration
 public class DataLoader {
@@ -22,8 +26,36 @@ public class DataLoader {
 	CommandLineRunner initData(
 			CamperRepository camperRepository,
 			ComputadorRepository computadorRepository,
-			PrestamoComputadorRepository prestamoRepository) {
+			PrestamoComputadorRepository prestamoRepository,
+			UsuarioRepository usuarioRepository,
+			PasswordEncoder passwordEncoder) {
 		return args -> {
+			if (usuarioRepository.count() == 0) {
+				Usuario admin = new Usuario();
+				admin.setNombreCompleto("Administrador Campus");
+				admin.setCorreo("admin@campuslands.com");
+				admin.setPassword(passwordEncoder.encode("Campus123*"));
+				admin.setRol(RolUsuario.ADMIN);
+				admin.setActivo(true);
+				usuarioRepository.save(admin);
+
+				Usuario coordinacion = new Usuario();
+				coordinacion.setNombreCompleto("Coordinacion Campus");
+				coordinacion.setCorreo("coordinacion@campuslands.com");
+				coordinacion.setPassword(passwordEncoder.encode("Campus123*"));
+				coordinacion.setRol(RolUsuario.COORDINACION);
+				coordinacion.setActivo(true);
+				usuarioRepository.save(coordinacion);
+
+				Usuario soporte = new Usuario();
+				soporte.setNombreCompleto("Soporte Campus");
+				soporte.setCorreo("soporte@campuslands.com");
+				soporte.setPassword(passwordEncoder.encode("Campus123*"));
+				soporte.setRol(RolUsuario.SOPORTE);
+				soporte.setActivo(true);
+				usuarioRepository.save(soporte);
+			}
+
 			if (camperRepository.count() > 0 || computadorRepository.count() > 0) {
 				return;
 			}

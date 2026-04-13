@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login | SSG</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+	<div class="form-wrap">
+		<div class="form-card">
+			<div class="pill">Acceso al sistema</div>
+			<h1>Iniciar sesion</h1>
+			<p class="lead">Usa tu cuenta registrada para ingresar al dashboard institucional.</p>
+
+			<div class="alert" th:if="${param.error}">Correo o contrasena invalidos.</div>
+			<div class="note ok" th:if="${param.logout}">La sesion se cerro correctamente.</div>
+			<div class="note ok" th:if="${param.registered}">Usuario registrado. Ya puedes iniciar sesion.</div>
+
+			<form method="post" th:action="@{/login}">
+				<div class="field">
+					<label for="username">Correo</label>
+					<input id="username" name="username" type="email" placeholder="admin@campuslands.com" required>
+				</div>
+				<div class="field">
+					<label for="password">Contrasena</label>
+					<input id="password" name="password" type="password" placeholder="********" required>
+				</div>
+				<button class="button primary" type="submit" style="width: 100%;">Ingresar</button>
+			</form>
+
+			<div class="footer-actions">
+				<a class="button" href="/">Volver al inicio</a>
+				<a class="button" href="/registro">Ir a registro</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

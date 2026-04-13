@@ -4,859 +4,93 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SSG Control Campers</title>
-	<style>
-		:root {
-			--sand: #efe8da;
-			--cream: #fbf8f1;
-			--panel: rgba(255, 252, 246, 0.84);
-			--panel-strong: #fffdf8;
-			--ink: #182026;
-			--muted: #5f665f;
-			--teal: #0f5c66;
-			--teal-deep: #083b42;
-			--gold: #c68b3c;
-			--coral: #d6715b;
-			--line: rgba(15, 92, 102, 0.12);
-			--shadow: 0 20px 60px rgba(24, 32, 38, 0.08);
-		}
-
-		* {
-			box-sizing: border-box;
-		}
-
-		html {
-			scroll-behavior: smooth;
-		}
-
-		body {
-			margin: 0;
-			font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-			color: var(--ink);
-			background:
-				radial-gradient(circle at top left, rgba(198, 139, 60, 0.18), transparent 28%),
-				radial-gradient(circle at right 20%, rgba(15, 92, 102, 0.14), transparent 24%),
-				linear-gradient(180deg, #f6f1e7 0%, #efe5d3 100%);
-		}
-
-		a {
-			color: inherit;
-			text-decoration: none;
-		}
-
-		.page-shell {
-			max-width: 1220px;
-			margin: 0 auto;
-			padding: 24px 20px 80px;
-		}
-
-		.topbar {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 18px;
-			padding: 18px 22px;
-			margin-bottom: 24px;
-			background: rgba(255, 255, 255, 0.55);
-			border: 1px solid rgba(255, 255, 255, 0.6);
-			border-radius: 24px;
-			backdrop-filter: blur(12px);
-			box-shadow: var(--shadow);
-		}
-
-		.brand {
-			display: flex;
-			align-items: center;
-			gap: 14px;
-		}
-
-		.logo-mark {
-			width: 56px;
-			height: 56px;
-			border-radius: 18px;
-			display: grid;
-			place-items: center;
-			background: linear-gradient(135deg, var(--teal), var(--teal-deep));
-			color: white;
-			font-size: 1.2rem;
-			font-weight: 700;
-			box-shadow: 0 14px 28px rgba(8, 59, 66, 0.22);
-		}
-
-		.brand small {
-			display: block;
-			color: var(--muted);
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			font-size: 0.72rem;
-		}
-
-		.brand strong {
-			display: block;
-			font-size: 1.05rem;
-		}
-
-		.nav {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 12px;
-		}
-
-		.nav a {
-			padding: 10px 14px;
-			border-radius: 999px;
-			font-size: 0.93rem;
-			color: var(--muted);
-			background: rgba(255, 255, 255, 0.54);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-		}
-
-		.hero {
-			display: grid;
-			grid-template-columns: 1.3fr 0.9fr;
-			gap: 24px;
-			align-items: stretch;
-		}
-
-		.hero-panel,
-		.hero-side,
-		.section-card,
-		.metric-card,
-		.module-card,
-		.endpoint-card,
-		.auth-card,
-		.dashboard-card {
-			background: var(--panel);
-			border: 1px solid rgba(255, 255, 255, 0.65);
-			border-radius: 28px;
-			box-shadow: var(--shadow);
-			backdrop-filter: blur(10px);
-		}
-
-		.hero-panel {
-			padding: 34px;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.hero-panel::after {
-			content: "";
-			position: absolute;
-			right: -90px;
-			top: -80px;
-			width: 240px;
-			height: 240px;
-			border-radius: 50%;
-			background: radial-gradient(circle, rgba(15, 92, 102, 0.22), transparent 65%);
-		}
-
-		.pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 9px 14px;
-			border-radius: 999px;
-			background: rgba(15, 92, 102, 0.1);
-			color: var(--teal);
-			font-weight: 700;
-			font-size: 0.85rem;
-			margin-bottom: 18px;
-		}
-
-		h1 {
-			margin: 0 0 16px;
-			font-size: clamp(2.4rem, 5vw, 4.6rem);
-			line-height: 0.96;
-			max-width: 760px;
-		}
-
-		.hero-copy {
-			max-width: 700px;
-			font-size: 1.05rem;
-			line-height: 1.7;
-			color: #425055;
-		}
-
-		.hero-actions {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 14px;
-			margin-top: 26px;
-		}
-
-		.button-primary,
-		.button-secondary {
-			padding: 14px 18px;
-			border-radius: 16px;
-			font-weight: 700;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			min-width: 170px;
-		}
-
-		.button-primary {
-			background: linear-gradient(135deg, var(--teal), var(--teal-deep));
-			color: white;
-		}
-
-		.button-secondary {
-			background: rgba(255, 255, 255, 0.7);
-			border: 1px solid var(--line);
-			color: var(--ink);
-		}
-
-		.hero-mini-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 14px;
-			margin-top: 28px;
-		}
-
-		.mini-tile {
-			padding: 16px;
-			border-radius: 18px;
-			background: rgba(255, 255, 255, 0.62);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-		}
-
-		.mini-tile span {
-			display: block;
-			font-size: 0.8rem;
-			color: var(--muted);
-		}
-
-		.mini-tile strong {
-			display: block;
-			font-size: 1.5rem;
-			margin-top: 8px;
-		}
-
-		.hero-side {
-			padding: 24px;
-			display: grid;
-			gap: 18px;
-			background:
-				linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 249, 239, 0.8));
-		}
-
-		.side-header {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
-		}
-
-		.side-header strong {
-			font-size: 1.05rem;
-		}
-
-		.status-chip {
-			padding: 8px 12px;
-			border-radius: 999px;
-			background: rgba(198, 139, 60, 0.14);
-			color: #8b5a17;
-			font-size: 0.82rem;
-			font-weight: 700;
-		}
-
-		.preview-screen {
-			padding: 18px;
-			border-radius: 24px;
-			background: linear-gradient(180deg, #f8fbfb, #edf5f4);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-		}
-
-		.screen-row {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 10px;
-			margin-bottom: 12px;
-		}
-
-		.screen-box {
-			padding: 14px;
-			border-radius: 16px;
-			background: white;
-			border: 1px solid rgba(15, 92, 102, 0.08);
-		}
-
-		.screen-box span {
-			display: block;
-			font-size: 0.78rem;
-			color: var(--muted);
-		}
-
-		.screen-box strong {
-			display: block;
-			margin-top: 6px;
-			font-size: 1.2rem;
-		}
-
-		.activity-log {
-			display: grid;
-			gap: 10px;
-		}
-
-		.activity-item {
-			padding: 13px 14px;
-			border-radius: 16px;
-			background: rgba(255, 255, 255, 0.78);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-			font-size: 0.93rem;
-		}
-
-		.section {
-			margin-top: 30px;
-		}
-
-		.section-card {
-			padding: 28px;
-		}
-
-		.section-head {
-			display: flex;
-			align-items: end;
-			justify-content: space-between;
-			gap: 18px;
-			margin-bottom: 18px;
-		}
-
-		.section-head h2 {
-			margin: 0;
-			font-size: clamp(1.5rem, 3vw, 2.5rem);
-		}
-
-		.section-head p {
-			margin: 8px 0 0;
-			color: var(--muted);
-			max-width: 700px;
-			line-height: 1.6;
-		}
-
-		.auth-grid,
-		.metrics-grid,
-		.modules-grid,
-		.endpoints-grid,
-		.dashboard-grid {
-			display: grid;
-			gap: 16px;
-		}
-
-		.auth-grid {
-			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-		}
-
-		.auth-card,
-		.dashboard-card,
-		.metric-card,
-		.module-card,
-		.endpoint-card {
-			padding: 22px;
-		}
-
-		.auth-card h3,
-		.dashboard-card h3,
-		.module-card h3,
-		.endpoint-card h3 {
-			margin: 0 0 10px;
-			font-size: 1.12rem;
-		}
-
-		.auth-card p,
-		.dashboard-card p,
-		.module-card p,
-		.endpoint-card p,
-		.metric-card p {
-			margin: 0;
-			color: var(--muted);
-			line-height: 1.6;
-		}
-
-		.form-preview {
-			display: grid;
-			gap: 10px;
-			margin-top: 16px;
-		}
-
-		.field {
-			padding: 13px 14px;
-			border-radius: 14px;
-			background: rgba(255, 255, 255, 0.82);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-			color: #6a736f;
-			font-size: 0.92rem;
-		}
-
-		.form-button {
-			margin-top: 4px;
-			padding: 13px 14px;
-			border-radius: 14px;
-			background: linear-gradient(135deg, var(--gold), #9c6325);
-			color: white;
-			font-weight: 700;
-			text-align: center;
-		}
-
-		.metrics-grid {
-			grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-		}
-
-		.metric-card {
-			background: var(--panel-strong);
-		}
-
-		.metric-label {
-			font-size: 0.86rem;
-			color: var(--muted);
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-		}
-
-		.metric-value {
-			font-size: 2.5rem;
-			font-weight: 800;
-			margin: 12px 0 8px;
-		}
-
-		.metric-accent {
-			width: 56px;
-			height: 6px;
-			border-radius: 999px;
-			background: linear-gradient(90deg, var(--teal), var(--gold));
-		}
-
-		.dashboard-grid {
-			grid-template-columns: 1.2fr 1fr;
-		}
-
-		.dashboard-card.highlight {
-			background: linear-gradient(135deg, rgba(15, 92, 102, 0.95), rgba(8, 59, 66, 0.96));
-			color: white;
-		}
-
-		.dashboard-card.highlight p {
-			color: rgba(255, 255, 255, 0.8);
-		}
-
-		.dashboard-list {
-			display: grid;
-			gap: 12px;
-			margin-top: 18px;
-		}
-
-		.dashboard-item {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 14px;
-			padding: 12px 14px;
-			border-radius: 16px;
-			background: rgba(255, 255, 255, 0.08);
-		}
-
-		.dashboard-card:not(.highlight) .dashboard-item {
-			background: rgba(15, 92, 102, 0.05);
-		}
-
-		.modules-grid {
-			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		}
-
-		.module-icon {
-			width: 48px;
-			height: 48px;
-			display: grid;
-			place-items: center;
-			border-radius: 14px;
-			margin-bottom: 14px;
-			font-weight: 700;
-			color: white;
-			background: linear-gradient(135deg, var(--teal), var(--coral));
-		}
-
-		.module-meta {
-			margin-top: 14px;
-			font-size: 0.85rem;
-			color: var(--teal);
-			font-weight: 700;
-		}
-
-		.endpoints-grid {
-			grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-		}
-
-		code {
-			display: inline-block;
-			margin-top: 14px;
-			padding: 7px 10px;
-			border-radius: 10px;
-			background: #efe5d7;
-			font-size: 0.9rem;
-		}
-
-		.footer-note {
-			margin-top: 30px;
-			padding: 18px 22px;
-			border-radius: 22px;
-			background: rgba(255, 255, 255, 0.52);
-			border: 1px solid rgba(15, 92, 102, 0.08);
-			color: var(--muted);
-			line-height: 1.7;
-		}
-
-		@media (max-width: 980px) {
-			.hero,
-			.dashboard-grid {
-				grid-template-columns: 1fr;
-			}
-		}
-
-		@media (max-width: 720px) {
-			.topbar,
-			.section-head {
-				flex-direction: column;
-				align-items: flex-start;
-			}
-
-			.hero-panel,
-			.hero-side,
-			.section-card {
-				padding: 22px;
-			}
-
-			.hero-mini-grid,
-			.screen-row {
-				grid-template-columns: 1fr;
-			}
-
-			h1 {
-				font-size: 2.3rem;
-			}
-		}
-	</style>
+	<link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-	<div class="page-shell">
+	<div class="shell">
 		<header class="topbar">
 			<div class="brand">
-				<div class="logo-mark">SSG</div>
+				<div class="logo">SSG</div>
 				<div>
 					<small>Campuslands Cajasan</small>
-					<strong>Control interno de equipos para campers</strong>
+					<strong>Control interno de equipos y campers</strong>
 				</div>
 			</div>
-
 			<nav class="nav">
-				<a href="#bienvenida">Bienvenida</a>
-				<a href="#accesos">Accesos</a>
-				<a href="#dashboard">Dashboard</a>
-				<a href="#modulos">Modulos</a>
-				<a href="#api">API</a>
+				<a href="/login">Login</a>
+				<a href="/registro">Registro</a>
+				<a href="/dashboard" class="primary">Dashboard</a>
 			</nav>
 		</header>
 
-		<section class="hero" id="bienvenida">
-			<div class="hero-panel">
-				<div class="pill">Sistema SSG listo para Campuslands</div>
-				<h1>Bienvenido al control interno de computadores para campers</h1>
-				<p class="hero-copy">
-					Esta landing centraliza la operacion del sistema: acceso al dashboard, gestion de campers,
-					inventario de computadores, prestamos, devoluciones, incidencias y visualizacion de indicadores
-					clave para coordinacion, soporte y administracion.
+		<section class="hero">
+			<div>
+				<div class="pill">Sistema institucional listo para operar</div>
+				<h1>Gestiona campers, computadores, prestamos e incidencias desde un solo lugar</h1>
+				<p class="lead">
+					El sistema SSG centraliza el control interno de computadores usados por campers de Campuslands en
+					Cajasan. Desde aqui puedes ingresar al login, registrar usuarios autorizados y acceder al dashboard
+					con indicadores operativos.
 				</p>
-
-				<div class="hero-actions">
-					<a class="button-primary" href="#dashboard">Ver dashboard</a>
-					<a class="button-secondary" href="#accesos">Ir a login y registro</a>
-				</div>
-
-				<div class="hero-mini-grid">
-					<div class="mini-tile">
-						<span>Campers activos</span>
-						<strong th:text="${resumen.totalCampersActivos}">0</strong>
-					</div>
-					<div class="mini-tile">
-						<span>Equipos en uso</span>
-						<strong th:text="${resumen.computadoresAsignados}">0</strong>
-					</div>
-					<div class="mini-tile">
-						<span>Incidencias criticas</span>
-						<strong th:text="${resumen.incidenciasCriticas}">0</strong>
-					</div>
+				<div class="actions">
+					<a class="button primary" href="/login">Iniciar sesion</a>
+					<a class="button" href="/registro">Registrar usuario</a>
+					<a class="button" href="/dashboard">Ir al dashboard</a>
 				</div>
 			</div>
 
-			<aside class="hero-side">
-				<div class="side-header">
-					<strong>Vista rapida del sistema</strong>
-					<span class="status-chip">Operacion interna</span>
-				</div>
-
-				<div class="preview-screen">
-					<div class="screen-row">
-						<div class="screen-box">
-							<span>Disponibles</span>
-							<strong th:text="${resumen.computadoresDisponibles}">0</strong>
-						</div>
-						<div class="screen-box">
-							<span>Prestamos</span>
-							<strong th:text="${resumen.prestamosActivos}">0</strong>
-						</div>
-						<div class="screen-box">
-							<span>Alertas</span>
-							<strong th:text="${resumen.incidenciasAbiertas}">0</strong>
-						</div>
-					</div>
-
-					<div class="activity-log">
-						<div class="activity-item">Inventario trazable por serial, placa y ubicacion.</div>
-						<div class="activity-item">Asignacion de equipo por camper con control de devolucion.</div>
-						<div class="activity-item">Seguimiento de incidencias de hardware, software, red y seguridad.</div>
-					</div>
-				</div>
-			</aside>
-		</section>
-
-		<section class="section" id="accesos">
-			<div class="section-card">
-				<div class="section-head">
-					<div>
-						<h2>Accesos principales</h2>
-						<p>
-							Secciones pensadas para el flujo del sistema. Aqui quedan listas la bienvenida, login,
-							registro y acceso al dashboard general del aplicativo.
-						</p>
-					</div>
-				</div>
-
-				<div class="auth-grid">
-					<article class="auth-card">
-						<h3>Login institucional</h3>
-						<p>Ingreso para coordinacion, soporte tecnico y administradores del control interno.</p>
-						<div class="form-preview">
-							<div class="field">Correo institucional</div>
-							<div class="field">Contrasena</div>
-							<div class="form-button">Iniciar sesion</div>
-						</div>
-					</article>
-
-					<article class="auth-card">
-						<h3>Registro de usuario</h3>
-						<p>Alta de personal autorizado para operar el sistema segun sus roles internos.</p>
-						<div class="form-preview">
-							<div class="field">Nombre completo</div>
-							<div class="field">Correo</div>
-							<div class="field">Rol del sistema</div>
-							<div class="form-button">Registrar usuario</div>
-						</div>
-					</article>
-
-					<article class="auth-card">
-						<h3>Acceso al dashboard</h3>
-						<p>Entrada directa a indicadores operativos del inventario, prestamos y mantenimiento.</p>
-						<div class="form-preview">
-							<div class="field">Resumen ejecutivo</div>
-							<div class="field">Monitoreo de prestamos</div>
-							<div class="field">Control de incidencias</div>
-							<a class="form-button" href="#dashboard">Abrir dashboard</a>
-						</div>
-					</article>
-				</div>
+			<div class="grid metrics">
+				<article class="metric">
+					<span>Campers activos</span>
+					<strong th:text="${resumen.totalCampersActivos}">0</strong>
+				</article>
+				<article class="metric">
+					<span>Computadores</span>
+					<strong th:text="${resumen.totalComputadores}">0</strong>
+				</article>
+				<article class="metric">
+					<span>Prestamos activos</span>
+					<strong th:text="${resumen.prestamosActivos}">0</strong>
+				</article>
+				<article class="metric">
+					<span>Incidencias abiertas</span>
+					<strong th:text="${resumen.incidenciasAbiertas}">0</strong>
+				</article>
 			</div>
 		</section>
 
-		<section class="section" id="dashboard">
-			<div class="section-card">
-				<div class="section-head">
-					<div>
-						<h2>Dashboard operativo</h2>
-						<p>
-							Indicadores conectados con la estructura de la base de datos: `campers`, `computadores`,
-							`prestamos_computador` e `incidencias`.
-						</p>
-					</div>
-				</div>
-
-				<div class="metrics-grid">
-					<article class="metric-card">
-						<div class="metric-label">Campers activos</div>
-						<div class="metric-value" th:text="${resumen.totalCampersActivos}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Computadores totales</div>
-						<div class="metric-value" th:text="${resumen.totalComputadores}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Prestamos activos</div>
-						<div class="metric-value" th:text="${resumen.prestamosActivos}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Incidencias abiertas</div>
-						<div class="metric-value" th:text="${resumen.incidenciasAbiertas}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Disponibles</div>
-						<div class="metric-value" th:text="${resumen.computadoresDisponibles}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Asignados</div>
-						<div class="metric-value" th:text="${resumen.computadoresAsignados}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Mantenimiento</div>
-						<div class="metric-value" th:text="${resumen.computadoresEnMantenimiento}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-					<article class="metric-card">
-						<div class="metric-label">Criticas</div>
-						<div class="metric-value" th:text="${resumen.incidenciasCriticas}">0</div>
-						<div class="metric-accent"></div>
-					</article>
-				</div>
-
-				<div class="dashboard-grid" style="margin-top: 20px;">
-					<article class="dashboard-card highlight">
-						<h3>Panel general de coordinacion</h3>
-						<p>
-							Permite tomar decisiones rapidas sobre ocupacion de equipos, soporte pendiente y capacidad
-							disponible para los campers.
-						</p>
-						<div class="dashboard-list">
-							<div class="dashboard-item">
-								<span>Uso del inventario</span>
-								<strong th:text="${resumen.computadoresAsignados + ' / ' + resumen.totalComputadores}">0 / 0</strong>
-							</div>
-							<div class="dashboard-item">
-								<span>Equipos listos para asignacion</span>
-								<strong th:text="${resumen.computadoresDisponibles}">0</strong>
-							</div>
-							<div class="dashboard-item">
-								<span>Alertas de soporte abiertas</span>
-								<strong th:text="${resumen.incidenciasAbiertas}">0</strong>
-							</div>
-						</div>
-					</article>
-
-					<article class="dashboard-card">
-						<h3>Lectura operativa</h3>
-						<p>Resumen para el control diario del flujo interno del area de tecnologia y coordinacion.</p>
-						<div class="dashboard-list">
-							<div class="dashboard-item">
-								<span>Campers habilitados</span>
-								<strong th:text="${resumen.totalCampersActivos}">0</strong>
-							</div>
-							<div class="dashboard-item">
-								<span>Equipos en mantenimiento</span>
-								<strong th:text="${resumen.computadoresEnMantenimiento}">0</strong>
-							</div>
-							<div class="dashboard-item">
-								<span>Incidencias criticas</span>
-								<strong th:text="${resumen.incidenciasCriticas}">0</strong>
-							</div>
-						</div>
-					</article>
+		<section class="panel" style="margin-top: 24px;">
+			<div class="section-title">
+				<div>
+					<h2>Accesos reales del sistema</h2>
+					<p>Pantallas disponibles para autenticacion, navegacion operativa y consulta de modulos.</p>
 				</div>
 			</div>
-		</section>
 
-		<section class="section" id="modulos">
-			<div class="section-card">
-				<div class="section-head">
-					<div>
-						<h2>Modulos del sistema</h2>
-						<p>
-							Cada seccion de la landing representa una parte del modelo de datos y del flujo funcional
-							que ya definimos para el proyecto.
-						</p>
+			<div class="grid cards-3">
+				<div class="card">
+					<h3>Login</h3>
+					<p class="lead">Acceso con correo y contrasena para administradores, coordinacion y soporte.</p>
+					<div class="footer-actions">
+						<a class="button primary" href="/login">Abrir login</a>
 					</div>
 				</div>
-
-				<div class="modules-grid">
-					<article class="module-card">
-						<div class="module-icon">C</div>
-						<h3>Gestion de campers</h3>
-						<p>Registro de documento, nombre, correo, clan y estado activo para asociar prestamos.</p>
-						<div class="module-meta">Tabla relacionada: campers</div>
-					</article>
-
-					<article class="module-card">
-						<div class="module-icon">PC</div>
-						<h3>Inventario de computadores</h3>
-						<p>Control por serial, placa de inventario, marca, modelo, ubicacion y estado operativo.</p>
-						<div class="module-meta">Tabla relacionada: computadores</div>
-					</article>
-
-					<article class="module-card">
-						<div class="module-icon">PR</div>
-						<h3>Prestamos y devoluciones</h3>
-						<p>Asignacion de equipos, fecha programada de devolucion, entrega real y observaciones.</p>
-						<div class="module-meta">Tabla relacionada: prestamos_computador</div>
-					</article>
-
-					<article class="module-card">
-						<div class="module-icon">IN</div>
-						<h3>Incidencias y soporte</h3>
-						<p>Registro de eventos de hardware, software, red o seguridad con severidad y estado.</p>
-						<div class="module-meta">Tabla relacionada: incidencias</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<section class="section" id="api">
-			<div class="section-card">
-				<div class="section-head">
-					<div>
-						<h2>Servicios disponibles</h2>
-						<p>
-							La landing tambien presenta los accesos tecnicos del backend para integraciones futuras,
-							pruebas API o construccion de formularios reales.
-						</p>
+				<div class="card">
+					<h3>Registro</h3>
+					<p class="lead">Alta de usuarios del sistema con rol `ADMIN`, `COORDINACION` o `SOPORTE`.</p>
+					<div class="footer-actions">
+						<a class="button" href="/registro">Crear usuario</a>
 					</div>
 				</div>
-
-				<div class="endpoints-grid">
-					<article class="endpoint-card">
-						<h3>Campers</h3>
-						<p>Consulta y registro de campers vinculados al sistema.</p>
-						<code>/api/campers</code>
-					</article>
-					<article class="endpoint-card">
-						<h3>Computadores</h3>
-						<p>Administracion del inventario de equipos de Campuslands.</p>
-						<code>/api/computadores</code>
-					</article>
-					<article class="endpoint-card">
-						<h3>Prestamos</h3>
-						<p>Control de asignaciones y proceso de devolucion de equipos.</p>
-						<code>/api/prestamos</code>
-					</article>
-					<article class="endpoint-card">
-						<h3>Incidencias</h3>
-						<p>Registro operativo de novedades y alertas del soporte tecnico.</p>
-						<code>/api/incidencias</code>
-					</article>
-					<article class="endpoint-card">
-						<h3>Dashboard</h3>
-						<p>Resumen consolidado de indicadores visibles en esta portada.</p>
-						<code>/api/dashboard/resumen</code>
-					</article>
-				</div>
-
-				<div class="footer-note">
-					Esta landing ya incluye seccion de bienvenida, logo visual, bloques de login y registro,
-					dashboard ejecutivo y modulos construidos de acuerdo con la base de datos propuesta. El siguiente
-					paso natural seria conectar formularios reales a autenticacion, CRUD web y navegacion interna.
+				<div class="card">
+					<h3>Dashboard y modulos</h3>
+					<p class="lead">Vista consolidada de inventario, prestamos, incidencias y usuarios registrados.</p>
+					<div class="footer-actions">
+						<a class="button" href="/dashboard">Entrar al dashboard</a>
+					</div>
 				</div>
 			</div>
 		</section>
 	</div>
-	<
 </body>
 </html>

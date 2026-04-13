@@ -32,6 +32,12 @@ Centralizar el inventario, la asignacion de equipos, las devoluciones y el regis
 
 La app inicia en `http://localhost:8080` y la consola H2 queda disponible en `http://localhost:8080/h2-console`.
 
+## Acceso inicial
+
+- Usuario `admin@campuslands.com` con clave `Campus123*`
+- Usuario `coordinacion@campuslands.com` con clave `Campus123*`
+- Usuario `soporte@campuslands.com` con clave `Campus123*`
+
 ## Endpoints
 
 - `GET /api/campers`
@@ -61,4 +67,3 @@ La app inicia en `http://localhost:8080` y la consola H2 queda disponible en `ht
 
 - [Base funcional del proyecto](docs/project-foundation.md)
 - [Script SQL inicial](sql/ssg_control_campers.sql)
-# SSG_Control_Campers
