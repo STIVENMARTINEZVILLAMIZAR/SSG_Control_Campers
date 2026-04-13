@@ -14,7 +14,15 @@ public interface PrestamoComputadorRepository extends JpaRepository<PrestamoComp
 
 	boolean existsByComputadorIdAndEstado(Long computadorId, EstadoPrestamo estado);
 
+	boolean existsByCamperId(Long camperId);
+
+	boolean existsByComputadorId(Long computadorId);
+
 	Optional<PrestamoComputador> findByIdAndEstado(Long id, EstadoPrestamo estado);
 
+	Optional<PrestamoComputador> findByComputadorIdAndEstado(Long computadorId, EstadoPrestamo estado);
+
 	List<PrestamoComputador> findByEstado(EstadoPrestamo estado);
+
+	long countByEstado(EstadoPrestamo estado);
 }

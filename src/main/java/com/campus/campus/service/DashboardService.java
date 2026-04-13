@@ -40,7 +40,7 @@ public class DashboardService {
 				computadorRepository.countByEstado(EstadoComputador.DISPONIBLE),
 				computadorRepository.countByEstado(EstadoComputador.ASIGNADO),
 				computadorRepository.countByEstado(EstadoComputador.MANTENIMIENTO),
-				prestamoRepository.findByEstado(EstadoPrestamo.ACTIVO).size(),
+				prestamoRepository.countByEstado(EstadoPrestamo.ACTIVO),
 				incidenciaRepository.countByEstado(EstadoIncidencia.ABIERTA),
 				incidenciaRepository.countBySeveridad(SeveridadIncidencia.CRITICA));
 	}
